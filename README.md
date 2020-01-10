@@ -1,2 +1,2 @@
 # p5.play-boilerplate
-CLASS 20 PROJECT BOILERPLATE
+Boiler plate for p5.play
