@@ -1,123 +1,81 @@
-var sun;
-var planet1,planet2,planet3,planet4,planet5,planet6,planet7,planet8;
+const Engine = Matter.Engine;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+
+var engine,world;
+
+var ground;
+var boxsideleft;
+var boxsideright;
+var box1;
+var box2;
+var box3;
+var box4;
+var box5;
 function setup() {
-  createCanvas(800,800);
-  sun = createSprite(400, 200, 50, 50);
-  sun.shapeColor = "yellow";
-
-  planet1 = createSprite(200,250,20,20);
-  planet1.shapeColor = "maroon";
-  planet1.setCollider("circle",0,0,10);
-  planet1.debug = true;
-
-  planet2 = createSprite(250,330,26,26);
-  planet2.shapeColor = "blue";
-  planet2.setCollider("circle",0,0,12);
-  planet2.debug = true;
-
-  planet3 = createSprite(470,200,15,15);
-  planet3.shapeColor = "brown";
-  planet3.setCollider("circle",0,0,8);
-  planet3.debug = true;
-
-  planet4 = createSprite(115,320,40,40);
-  planet4.shapeColor = "green";
-  planet4.setCollider("circle",0,0,20);
-  planet4.debug = true;
-
-  planet5 = createSprite(400, 50, 45, 45);
-  planet5.shapeColor = "cyan";
-  planet5.setCollider("circle",0,0,23);
-  planet5.debug = true;
-
-  planet6 = createSprite(650,200,25,25);
-  planet6.shapeColor = "red";
-  planet6.setCollider("circle",0,0,12);
-  planet6.debug = true;
-
-  planet7 = createSprite(400, 350, 45, 45);
-  planet7.shapeColor = "blue";
-  planet7.setCollider("circle",0,0,23);
-  planet7.debug = true;
-
-  planet8 = createSprite(250, 70 , 30, 30);
-  planet8.shapeColor = "grey";
-  planet8.setCollider("circle",0,0,15);
-  planet8.debug = true;
+  engine = Engine.create();
+  world = engine.world;
+  var ground_options = {
+    isStatic: true
+  }
+  var boxsideleft_options = {
+    isStatic: true
+  }
+  var boxsideright_options = {
+    isStatic: true
+  }
+  var box1_options = {
+    isStatic: true
+  }
+  var box2_options = {
+    isStatic: true
+  }
+   var box3_options = {
+    isStatic: true
+  }
+  var box4_options = {
+    isStatic: true
+   }
+   var box5_options = {
+    isStatic: true
+   }
+  ground = Bodies.rectangle(200,390,200,10,ground_options);
+  boxsideleft = Bodies.rectangle(80,235,20,300,boxsideleft_options);
+  boxsideright = Bodies.rectangle(310,235,20,300,boxsideright_options);
+  box1 = Bodies.rectangle(110,275,40,220,box1_options);
+  box2 = Bodies.rectangle(150,295,40,180,box2_options);
+  box3 = Bodies.rectangle(195,305,50,160,box3_options);
+  box4 = Bodies.rectangle(240,295,40,180,box4_options);
+  box5 = Bodies.rectangle(280,275,40,220,box5_options);
+  
+  World.add(world,ground);
+  World.add(world,boxsideleft);
+  World.add(world,boxsideright);
+  World.add(world,box1);
+  World.add(world,box2);
+  World.add(world,box3);
+  World.add(world,box4);
+  World.add(world,box5);
 }
 
 function draw() {
-  background(255,255,255);  
-  if(frameCount%2===0){
-    sun.width = sun.width + 1;
-    sun.height = sun.height + 1;
-  }
-  if(ISTOUCHING1()){
-    planet1.destroy();
-  }
-  if(ISTOUCHING2()){
-    planet2.destroy();
-  }
-  if(ISTOUCHING3()){
-    planet3.destroy();
-  }
-  if(ISTOUCHING4()){
-    planet4.destroy();
-    sun.destroy();
-  }
-  if(ISTOUCHING5()){
-    planet5.destroy();
-  }
-  if(ISTOUCHING6()){
-    planet6.destroy();
-  }
-  if(ISTOUCHING7()){
-    planet7.destroy();
-  }
-  if(ISTOUCHING8()){
-    planet8.destroy();
-  }
- 
-  drawSprites();
+  background(0);  
+  Engine.update(engine);
+  rectMode(CENTER);
+  fill("brown");
+  rect(ground.position.x,ground.position.y,400,10);
+  fill("blue");
+  triangle(90, 165, 110, 145, 130, 165);
+  fill("blue");
+  triangle(170, 225, 195, 150, 220, 225);
+  fill("blue");
+  triangle(260,165,280,145,300,165);
+  fill("white");
+  rect(boxsideleft.position.x,boxsideleft.position.y,20,300);
+  rect(boxsideright.position.x,boxsideright.position.y,20,300);
+  rect(box1.position.x,box1.position.y,40,220);
+  rect(box2.position.x,box2.position.y,40,180);
+  rect(box3.position.x,box3.position.y,50,160);
+  rect(box4.position.x,box4.position.y,40,180);
+  rect(box5.position.x,box5.position.y,40,220);
 }
-function ISTOUCHING1(){
-  if (sun.isTouching(planet1)){
-    return true;
-  }
-}
-function ISTOUCHING2(){
-  if (sun.isTouching(planet2)){
-    return true;
-  }
-}
-function ISTOUCHING3(){
-  if (sun.isTouching(planet3)){
-    return true;
-  }
-}
-function ISTOUCHING4(){
-  if (sun.isTouching(planet4)){
-    return true;
-  }
-}
-function ISTOUCHING5(){
-  if (sun.isTouching(planet5)){
-    return true;
-  }
-}
-function ISTOUCHING6(){
-  if (sun.isTouching(planet6)){
-    return true;
-  }
-}
-function ISTOUCHING7(){
-  if (sun.isTouching(planet7)){
-    return true;
-  }
-}
-function ISTOUCHING8(){
-  if (sun.isTouching(planet8)){
-    return true;
-  }
-}
-
